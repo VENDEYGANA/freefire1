@@ -311,12 +311,13 @@
 
                     // Prepare the message
                     const message = `
-                        📧 Correo: ${email}
-                        🆔 Cédula: ${cedula}
-                        📞 Teléfono: ${telefono}
-                        🎮 Servicio: Free Fire
-                        💎 Monto de pin: ${selectedPins.map(item => `${item.pin} (Cantidad: ${item.cantidad}, Total: ${item.total} BS)`).join(', ')}
-                        🧾 TOTAL GENERAL: ${totalGeneral} BS
+📧 *Correo:* ${email}
+🆔 *Cédula:* ${cedula}
+📞 *Teléfono:* ${telefono}
+🎮 *Servicio:* Free Fire
+💎 *Pines seleccionados:* 
+${selectedPins.map(item => `- ${item.pin} (Cantidad: ${item.cantidad}, Total: ${item.total} BS)`).join('\n')}
+🧾 *TOTAL GENERAL:* ${totalGeneral} BS
                     `;
 
                     // Display WhatsApp processing popup
@@ -343,6 +344,11 @@
                     confirmationPopup.classList.add('hidden');
                     popupBg.classList.remove('hidden');
                 };
+            });
+        });
+    </script>
+</body>
+</html>
             });
         });
     </script>
