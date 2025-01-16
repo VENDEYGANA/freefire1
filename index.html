@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popup de Free Fire</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .popup-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .popup {
+            background-color: white;
+            border: 5px solid #ed7318;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 300px;
+        }
+        .hidden {
+            display: none;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin: 10px 0 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        input[type="email"],
+        input[type="text"],
+        input[type="tel"] {
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #ed7318;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #d65e14;
+        }
+        img {
+            max-width: 100px; /* Adjust the max-width to make the image smaller */
+            height: auto;
+        }
+        .total {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .whatsapp-logo {
+            max-width: 30px;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+        .whatsapp-message {
+            margin-top: 20px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .total-general {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="popup-bg" class="popup-bg"> <!-- Always visible initially -->
+        <div id="popup" class="popup">
+            <h2>PINES DE FREE FIRE</h2>
+            <img src="https://i.pinimg.com/736x/33/9a/c2/339ac2b93b9f7cd4d8f004cc9438da3d.jpg" alt="Free Fire">
+            <form id="user-form">
+                <label for="email">Correo:</label>
+                <input type="email" id="email" required>
+                <label for="cedula">Cédula:</label>
+                <input type="text" id="cedula" required>
+                <label for="telefono">Teléfono:</label>
+                <input type="tel" id="telefono" required>
+                <button type="submit">Continuar</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="pin-selection" class="popup-bg hidden">
+        <div class="popup">
+            <h2>Elija sus pines</h2>
+            <form id="pin-form">
+                <label>
+                    <input type="checkbox" name="pin" value="100 Diamantes 88 BS"> 100 Diamantes 88 BS
+                    <select name="cantidad-100">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </label>
+                <label>
+                    <input type="checkbox" name="pin" value="310 Diamantes 228 BS"> 310 Diamantes 228 BS
+                    <select name="cantidad-310">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </label>
+                <label>
+                    <input type="checkbox" name="pin" value="520 Diamantes 360 BS"> 520 Diamantes 360 BS
+                    <select name="cantidad-520">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </label>
+                <label>
+                    <input type="checkbox" name="pin" value="1060 Diamantes 710 BS"> 1060 Diamantes 710 BS
+                    <select name="cantidad-1060">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </label>
+                <label>
+                    <input type="checkbox" name="pin" value="2180 Diamantes 1.394 BS"> 2180 Diamantes 1.394 BS
+                    <select name="cantidad-2180">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </label>
+                <label>
+                    <input type="checkbox" name="pin" value="5600 Diamantes 3.300 BS"> 5600 Diamantes 3.300 BS
+                    <select name="cantidad-5600">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </label>
+                <div class="total">Total: 0 BS</div>
+                <button type="submit">Comprar</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="confirmation-popup" class="popup-bg hidden">
+        <div class="popup">
+            <h2>Confirmación de Compra</h2>
+            <p id="confirmation-message"></p>
+            <p id="total-general" class="total-general"></p>
+            <button id="confirm-button">Confirmar</button>
+            <button id="edit-button">Corregir</button>
+            <button id="cancel-button">Cancelar</button>
+        </div>
+    </div>
+
+    <div id="whatsapp-popup" class="popup-bg hidden">
+        <div class="popup">
+            <h2>Procesando Recarga</h2>
+            <div class="whatsapp-message">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="whatsapp-logo">
+                <span>Se procesará la recarga por esta vía</span>
+            </div>
+            <button id="close-whatsapp-popup">Cerrar</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const popupBg = document.getElementById('popup-bg');
+            const pinSelection = document.getElementById('pin-selection');
+            const confirmationPopup = document.getElementById('confirmation-popup');
+            const whatsappPopup = document.getElementById('whatsapp-popup');
+            const userForm = document.getElementById('user-form');
+            const pinForm = document.getElementById('pin-form');
+            const confirmButton = document.getElementById('confirm-button');
+            const editButton = document.getElementById('edit-button');
+            const cancelButton = document.getElementById('cancel-button');
+            const closeWhatsappPopup = document.getElementById('close-whatsapp-popup');
+            const confirmationMessage = document.getElementById('confirmation-message');
+            const totalDisplay = document.querySelector('.total');
+            const totalGeneralDisplay = document.getElementById('total-general');
+
+            // Precios de los pines
+            const prices = {
+                '100 Diamantes 88 BS': 88,
+                '310 Diamantes 228 BS': 228,
+                '520 Diamantes 360 BS': 360,
+                '1060 Diamantes 710 BS': 710,
+                '2180 Diamantes 1.394 BS': 1394,
+                '5600 Diamantes 3.300 BS': 3300
+            };
+
+            // Load saved user data if available
+            const savedEmail = localStorage.getItem('email');
+            const savedCedula = localStorage.getItem('cedula');
+            const savedTelefono = localStorage.getItem('telefono');
+            const userDataFilled = localStorage.getItem('userDataFilled');
+
+            if (userDataFilled === 'true') {
+                pinSelection.classList.remove('hidden');
+            } else {
+                popupBg.classList.remove('hidden');
+            }
+
+            if (savedEmail && savedCedula && savedTelefono) {
+                document.getElementById('email').value = savedEmail;
+                document.getElementById('cedula').value = savedCedula;
+                document.getElementById('telefono').value = savedTelefono;
+            }
+
+            // Handle user form submission
+            userForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const email = document.getElementById('email').value;
+                const cedula = document.getElementById('cedula').value;
+                const telefono = document.getElementById('telefono').value;
+
+                // Save user data
+                localStorage.setItem('email', email);
+                localStorage.setItem('cedula', cedula);
+                localStorage.setItem('telefono', telefono);
+                localStorage.setItem('userDataFilled', 'true');
+
+                // Show pin selection popup
+                popupBg.classList.add('hidden');
+                pinSelection.classList.remove('hidden');
+            });
+
+            // Calculate the total price of selected pins
+            const calculateTotal = () => {
+                let total = 0;
+                const selectedPins = document.querySelectorAll('input[name="pin"]:checked');
+                selectedPins.forEach(pin => {
+                    const cantidad = document.querySelector(`select[name="cantidad-${pin.value.split(' ')[0]}"]`).value;
+                    total += prices[pin.value] * cantidad;
+                });
+                totalDisplay.textContent = `Total: ${total} BS`;
+                return total;
+            };
+
+            // Add event listeners to checkboxes and select elements to update the total
+            document.querySelectorAll('input[name="pin"]').forEach(checkbox => {
+                checkbox.addEventListener('change', calculateTotal);
+            });
+            document.querySelectorAll('select').forEach(select => {
+                select.addEventListener('change', calculateTotal);
+            });
+
+            // Handle pin form submission
+            pinForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const selectedPins = Array.from(document.querySelectorAll('input[name="pin"]:checked')).map(pin => {
+                    const cantidad = document.querySelector(`select[name="cantidad-${pin.value.split(' ')[0]}"]`).value;
+                    return {
+                        pin: pin.value,
+                        cantidad: cantidad,
+                        total: prices[pin.value] * cantidad
+                    };
+                });
+
+                if (selectedPins.length === 0) {
+                    alert('Por favor seleccione al menos un pin.');
+                    return;
+                }
+
+                // Calculate the total general
+                const totalGeneral = calculateTotal();
+
+                // Display confirmation popup
+                confirmationMessage.innerHTML = `¿Seguro que desea hacer la siguiente compra?<br>${selectedPins.map(item => `${item.pin} (Cantidad: ${item.cantidad}, Total: ${item.total} BS)`).join('<br>')}`;
+                totalGeneralDisplay.textContent = `TOTAL GENERAL: ${totalGeneral} BS`;
+                pinSelection.classList.add('hidden');
+                confirmationPopup.classList.remove('hidden');
+
+                // Handle confirmation button click
+                confirmButton.onclick = () => {
+                    const email = localStorage.getItem('email');
+                    const cedula = localStorage.getItem('cedula');
+                    const telefono = localStorage.getItem('telefono');
+
+                    // Prepare the message
+                    const message = `
+                        📧 Correo: ${email}
+                        🆔 Cédula: ${cedula}
+                        📞 Teléfono: ${telefono}
+                        🎮 Servicio: Free Fire
+                        💎 Monto de pin: ${selectedPins.map(item => `${item.pin} (Cantidad: ${item.cantidad}, Total: ${item.total} BS)`).join(', ')}
+                        🧾 TOTAL GENERAL: ${totalGeneral} BS
+                    `;
+
+                    // Display WhatsApp processing popup
+                    confirmationPopup.classList.add('hidden');
+                    whatsappPopup.classList.remove('hidden');
+
+                    // Close WhatsApp popup and open WhatsApp
+                    closeWhatsappPopup.onclick = () => {
+                        const whatsappUrl = `https://wa.me/584247388620?text=${encodeURIComponent(message)}`;
+                        window.open(whatsappUrl, '_blank');
+                        whatsappPopup.classList.add('hidden');
+                        popupBg.classList.remove('hidden');
+                    };
+                };
+
+                // Handle edit button click
+                editButton.onclick = () => {
+                    confirmationPopup.classList.add('hidden');
+                    pinSelection.classList.remove('hidden');
+                };
+
+                // Handle cancel button click
+                cancelButton.onclick = () => {
+                    confirmationPopup.classList.add('hidden');
+                    popupBg.classList.remove('hidden');
+                };
+            });
+        });
+    </script>
+</body>
+</html>
