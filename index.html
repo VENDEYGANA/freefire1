@@ -82,10 +82,15 @@
             font-weight: bold;
             margin-top: 20px;
         }
+        .instructions {
+            margin-top: 20px;
+            font-size: 14px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-    <div id="popup-bg" class="popup-bg"> <!-- Always visible initially -->
+    <div id="popup-bg" class="popup-bg">
         <div id="popup" class="popup">
             <h2>PINES DE FREE FIRE</h2>
             <img src="https://i.pinimg.com/736x/33/9a/c2/339ac2b93b9f7cd4d8f004cc9438da3d.jpg" alt="Free Fire">
@@ -189,7 +194,12 @@
                 <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="whatsapp-logo">
                 <span>Se procesará la recarga por esta vía</span>
             </div>
-            <button id="close-whatsapp-popup">Cerrar</button>
+            <div class="instructions">
+                Si está usando su teléfono móvil, dele al botón "Continuar".<br>
+                Si está usando su computadora o laptop, dele al botón "Copiar Mensaje" y envíelo al WhatsApp 04247388620.
+            </div>
+            <button id="continue-whatsapp">Continuar</button>
+            <button id="copy-message">Copiar Mensaje</button>
         </div>
     </div>
 
@@ -204,7 +214,8 @@
             const confirmButton = document.getElementById('confirm-button');
             const editButton = document.getElementById('edit-button');
             const cancelButton = document.getElementById('cancel-button');
-            const closeWhatsappPopup = document.getElementById('close-whatsapp-popup');
+            const continueWhatsapp = document.getElementById('continue-whatsapp');
+            const copyMessage = document.getElementById('copy-message');
             const confirmationMessage = document.getElementById('confirmation-message');
             const totalDisplay = document.querySelector('.total');
             const totalGeneralDisplay = document.getElementById('total-general');
@@ -324,12 +335,19 @@ ${selectedPins.map(item => `- ${item.pin} (Cantidad: ${item.cantidad}, Total: ${
                     confirmationPopup.classList.add('hidden');
                     whatsappPopup.classList.remove('hidden');
 
-                    // Close WhatsApp popup and open WhatsApp
-                    closeWhatsappPopup.onclick = () => {
+                    // Handle continue button click
+                    continueWhatsapp.onclick = () => {
                         const whatsappUrl = `https://wa.me/584247388620?text=${encodeURIComponent(message)}`;
                         window.open(whatsappUrl, '_blank');
                         whatsappPopup.classList.add('hidden');
                         popupBg.classList.remove('hidden');
+                    };
+
+                    // Handle copy message button click
+                    copyMessage.onclick = () => {
+                        navigator.clipboard.writeText(message).then(() => {
+                            alert('Mensaje copiado al portapapeles. Abra WhatsApp y pegue el mensaje.');
+                        });
                     };
                 };
 
@@ -344,11 +362,6 @@ ${selectedPins.map(item => `- ${item.pin} (Cantidad: ${item.cantidad}, Total: ${
                     confirmationPopup.classList.add('hidden');
                     popupBg.classList.remove('hidden');
                 };
-            });
-        });
-    </script>
-</body>
-</html>
             });
         });
     </script>
